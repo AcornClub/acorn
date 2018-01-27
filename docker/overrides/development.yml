@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   acorn:
-    command: /bin/bash -c 'rm tmp/pids/server.pid; bundle install && rake db:create db:migrate && bundle exec rails s -p 3000 -b "0.0.0.0"'
+    command: /bin/bash -c 'rm tmp/pids/server.pid; yarn install; bundle install && rake db:create db:migrate && bundle exec rails s -p 3000 -b "0.0.0.0"'
     depends_on:
       - db
     env_file:
@@ -16,8 +16,6 @@ services:
     env_file:
       - ./.env
     image: mysql:5.7.9
-    # networks:
-    #   - acornnet
     volumes:
       - ./db/conf.d:/etc/mysql/conf.d
       - mysql-data:/var/lib/mysql
