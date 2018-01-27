@@ -2,7 +2,7 @@
 
 To start the server for the first time, make sure to have Docker installed and then run
 ```bash
-./setup-development.sh
+./docker/setup-development.sh
 ```
 This creates the necessary docker volumes and networks.
 
