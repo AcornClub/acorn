@@ -21,3 +21,18 @@ To access a stopped container type:
 docker-compose run acorn bash
 ```
 
+To see what containers are running:
+```bash
+docker ps
+```
+
+To see the logs for a given container:
+```bash
+docker-compose logs --tail 100 acorn
+```
+
+To stop a container:
+```bash
+docker-compose stop <container-name-optional>
+```
+
