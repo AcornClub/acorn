@@ -1,0 +1,72 @@
+version: '2.1'
+services:
+  acorn:
+    depends_on:
+      - db
+    environment:
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER:-acorn}
+      RAILS_ENV: production
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      WHITNEY_ENV: ${ACORN_ENV:-production}
+      TZ: ${TZ:-America/New_York}
+    volumes:
+      - acorn-node_modules:/app/acorn/node_modules
+    logging:
+      driver: json-file
+      options:
+        max-size: "800m"
+        max-file: "8"
+    env_file:
+      - ./.env
+    command: bundle exec puma -C config/puma.rb
+  cmsdb:
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER:-acorn}
+      TZ: ${TZ:-America/New_York}
+    image: mysql:5.7.9
+    networks:
+      - acornnet
+    ports:
+      - 3306:3306
+    volumes:
+      - ./backup:/backup
+      - ./db/backup.sh:/backup.sh
+      - ./cdb/conf.d:/etc/mysql/conf.d
+      - mysql-data:/var/lib/mysql
+    logging:
+      driver: json-file
+      options:
+        max-size: "200m"
+        max-file: "4"
+    env_file:
+      - ./.env
+  proxy:
+    depends_on:
+      - acorn
+    environment:
+      TZ: ${TZ:-America/New_York}
+    image: nginx:1.12
+    networks:
+      - acornnet
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./proxy/shared:/etc/nginx/conf.d
+      - ./proxy/base/nginx.conf:/etc/nginx/nginx.conf
+      - ./proxy/production/ssl:/etc/nginx/ssl
+      - ./acorn/public:/app/public
+    logging:
+      driver: json-file
+      options:
+        max-size: "200m"
+        max-file: "4"
+    env_file:
+      - ./.env
+volumes:
+  es-data:
+    driver: local

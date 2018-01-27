@@ -1,0 +1,6 @@
+# This cron should go in /etc/cron.d/
+# MAILTO=
+PATH=/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin
+
+# Save a daily backup from cmsdb
+0 0 * * * acorn cd /app/acorn && /usr/local/bin/docker-compose exec -T db /backup.sh

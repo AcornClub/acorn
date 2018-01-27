@@ -1,0 +1,15 @@
+*.idea
+*.swo
+*.swp
+*.sql
+acorn.env
+docker-compose*.yml
+!docker-compose.development.yml
+!docker-compose.production.primary.yml
+.env
+
+# Mac files
+.DS_Store
+
+# Ignore 'junk' folder for storing code fragments
+.junk

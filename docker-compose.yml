@@ -1,0 +1,20 @@
+version: '2.1'
+services:
+  acorn:
+    build:
+      context: ./acorn
+    volumes:
+      - ./acorn:/app/acorn
+      - acorn-gems:/usr/local/bundle
+    # networks:
+    #   - acornnet
+volumes:
+  acorn-gems:
+    driver: local
+  acorn-node_modules:
+    driver: local
+  mysql-data:
+    driver: local
+# networks:
+#   acornnet:
+#     external: true
