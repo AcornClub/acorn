@@ -8,7 +8,6 @@ services:
       MYSQL_USER: ${MYSQL_USER:-acorn}
       RAILS_ENV: production
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-      WHITNEY_ENV: ${ACORN_ENV:-production}
       TZ: ${TZ:-America/New_York}
     volumes:
       - acorn-node_modules:/app/acorn/node_modules
@@ -20,7 +19,7 @@ services:
     env_file:
       - ./.env
     command: bundle exec puma -C config/puma.rb
-  cmsdb:
+  db:
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}

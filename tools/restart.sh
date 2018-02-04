@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose exec cms touch tmp/restart.txt
+docker-compose exec acorn touch tmp/restart.txt
