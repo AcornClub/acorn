@@ -1,0 +1,30 @@
+<%= form_for @event do |event_form| %>
+  <%= yield event_form %>
+
+  <%= event_form.hidden_field :id %>
+
+  <div class="form-group">
+    <%= event_form.label :title %>
+    <%= event_form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= event_form.label :start_at %>
+    <%= event_form.datetime_field :start_at, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= event_form.label :end_at %>
+    <%= event_form.datetime_field :end_at, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= event_form.label :description %>
+    <%= event_form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= event_form.submit 'Save changes', id: 'form-submit', class: 'btn btn-primary form-save__btn' %>
+  </div>
+
+<% end %>

@@ -1,0 +1,10 @@
+<div class="event">
+  <h1><%= @event.title.html_safe %></h1>
+  <%= link_to 'edit event', edit_event_path, class: 'btn btn-primary' %>
+  
+  <p><strong>Start</strong><br /><%= @event.start_at %></p>
+
+  <p><strong>End</strong><br /><%= @event.start_at %></p>
+
+  <p><strong>Description</strong><br /><%= @event.description.html_safe %></p>
+</div>

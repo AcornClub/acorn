@@ -1,0 +1,50 @@
+<h1>Events</h1>
+<%= link_to 'Add event', new_event_path, class: 'btn btn-primary' %>
+<% if @events.present? %>
+<%= console %>
+  <div class="search-container filter-fields">
+    <div class="filter-field-item">
+      <%= label :q, :id_eq, 'ID' %>
+      <%= text_field :q, :id_eq, class: 'form-control admin-search__field filter-field-item__input', value: @q.id_eq %>
+    </div>
+    <div class="filter-field-item">
+      <%= label :q, :title_cont, 'Title' %>
+      <%= text_field :q, :title_cont, class: 'form-control admin-search__field filter-field-item__input', value: params.dig(:q, :title_cont) %>
+    </div>
+    <div class="filter-field-item">
+      <%= label :q, :date, 'Occurs On' %>
+      <%= date_field :q, :on_date, class: 'form-control admin-search__field filter-field-item__input', value: params.dig(:q, :on_date) %>
+    </div>
+
+    <%= search_button %>
+    <%= clear_button %>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">title</th>
+        <th scope="col">start</th>
+        <th scope="col">end</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    <%= @events.each do |event| %>
+      <tr>
+        <th scope="row"><%= event.id %></th>
+        <td><%= link_to event.title.html_safe, event_path(event) %></td>
+        <td><%= event.start_at %></td>
+        <td><%= event.end_at %></td>
+      </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+
+
+<% else %>
+  <p>No events</p>
+<% end %>

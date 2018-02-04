@@ -10,6 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20180204030436) do
+
+  create_table "event_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "title"
+    t.float "latitude", limit: 24
+    t.float "longitude", limit: 24
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.text "description"
+    t.string "facebook_url"
+    t.integer "cover_image_id"
+    t.integer "event_type_id"
+    t.integer "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_type_id"], name: "index_events_on_event_type_id"
+    t.index ["member_id"], name: "index_events_on_member_id"
+  end
+
+  create_table "members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.string "username"
+    t.string "avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_members_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_members_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_members_on_unlock_token", unique: true
+  end
 
 end
