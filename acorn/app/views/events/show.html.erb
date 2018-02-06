@@ -1,7 +1,13 @@
 <div class="event">
-  <h1><%= @event.title.html_safe %></h1>
-  <%= link_to 'edit event', edit_event_path, class: 'btn btn-primary' %>
-  
+  <h1>
+    <%= @event.title.html_safe %> 
+    <% if can? :update, @event %>
+      <%= link_to 'edit', edit_event_path, class: 'btn btn-default' %>
+    <% end %>
+  </h1>
+
+  <p><strong>Posted by</strong><br /><%= @event.member.username %></p>
+
   <p><strong>Start</strong><br /><%= @event.start_at %></p>
 
   <p><strong>End</strong><br /><%= @event.start_at %></p>

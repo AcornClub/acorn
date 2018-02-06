@@ -34,8 +34,8 @@
       <tr>
         <th scope="row"><%= event.id %></th>
         <td><%= link_to event.title.html_safe, event_path(event) %></td>
-        <td><%= event.start_at %></td>
-        <td><%= event.end_at %></td>
+        <td><%= event.start_at&.strftime('%a, %b %d, %Y %H:%M') %></td>
+        <td><%= event.end_at&.strftime('%a, %b %d, %Y %H:%M') %></td>
         <td><%= event.member&.username %></td>
       </tr>
     <% end %>
