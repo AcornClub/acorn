@@ -12,6 +12,38 @@
   </head>
 
   <body>
+
+    <div class="container">
+
+      <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Acorn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/events">Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/posts">Posts</a>
+            </li>
+
+          </ul>
+          <div class="form-inline my-2 my-lg-0">
+            <% if member_signed_in? %>
+              <a class="btn btn-default" href="/members/edit"><%= current_member.username %></a>&nbsp; 
+              <a class="btn btn-outline-success" href="/events/new">New Event</a>&nbsp; 
+              <a class="btn btn-outline-success" href="/posts/new">New Post</a>
+            <% else %>
+              <%= link_to('Log in', 'members/sign_in') %>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+    </div>
+
     <div class="container">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>

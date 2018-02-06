@@ -1,25 +1,22 @@
 <h1>Events</h1>
-<%= link_to 'Add event', new_event_path, class: 'btn btn-primary' %>
+<br /><br />
 <% if @events.present? %>
-<%= console %>
-  <div class="search-container filter-fields">
+<form>
+  <div class="search-container filter-fields form-inline">
     <div class="filter-field-item">
-      <%= label :q, :id_eq, 'ID' %>
-      <%= text_field :q, :id_eq, class: 'form-control admin-search__field filter-field-item__input', value: @q.id_eq %>
+      <%= text_field :q, :id_eq, class: 'form-control  mb-2 mr-sm-2', value: @q.id_eq, placeholder: 'ID' %>
     </div>
     <div class="filter-field-item">
-      <%= label :q, :title_cont, 'Title' %>
-      <%= text_field :q, :title_cont, class: 'form-control admin-search__field filter-field-item__input', value: params.dig(:q, :title_cont) %>
+      <%= text_field :q, :title_cont, class: 'form-control  mb-2 mr-sm-2', value: params.dig(:q, :title_cont), placeholder: 'Title' %>
     </div>
     <div class="filter-field-item">
-      <%= label :q, :date, 'Occurs On' %>
-      <%= date_field :q, :on_date, class: 'form-control admin-search__field filter-field-item__input', value: params.dig(:q, :on_date) %>
+      <%= date_field :q, :on_date, class: 'form-control mb-2 mr-sm-2', value: params.dig(:q, :on_date) %>
     </div>
-
-    <%= search_button %>
-    <%= clear_button %>
+    <div class="filter-field-item  mb-2 mr-sm-2">
+      <button type='submit' class='btn btn-success search-container__btn'>search</button>
+    </div>
   </div>
-
+</form>
 
   <table class="table">
     <thead>
@@ -28,16 +25,18 @@
         <th scope="col">title</th>
         <th scope="col">start</th>
         <th scope="col">end</th>
+        <th scope="col">Posted by</th>
       </tr>
     </thead>
     <tbody>
 
-    <%= @events.each do |event| %>
+    <% @events.each do |event| %>
       <tr>
         <th scope="row"><%= event.id %></th>
         <td><%= link_to event.title.html_safe, event_path(event) %></td>
         <td><%= event.start_at %></td>
         <td><%= event.end_at %></td>
+        <td><%= event.member&.username %></td>
       </tr>
     <% end %>
 

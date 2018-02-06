@@ -3,9 +3,9 @@ class EventsController < ApplicationController
   respond_to :html
 
   def index
-    @metadata = Event.ransack(params[:q])
-    @metadata.sorts = ['updated_at desc', 'created_at desc'] if @metadata.sorts.empty?
-    @events = @metadata.result.page(params[:page]).per(params[:per_page])
+    @q = Event.ransack(params[:q])
+    @q.sorts = ['updated_at desc', 'created_at desc'] if @q.sorts.empty?
+    @events = @q.result.page(params[:page]).per(params[:per_page])
   end
 
   def show
@@ -22,6 +22,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.member = current_member
     @event.save
 
     redirect_to event_path(@event)
